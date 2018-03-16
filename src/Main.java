@@ -1,5 +1,6 @@
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.io.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -108,14 +109,16 @@ class DataConsumer implements Runnable{
 
 public class Main {
 
-    public static void main(String args[]){
-//        Data data = new Data();
-//        //此时的data是唯一的
-//        new Thread(new DataProvider(data)).start();
-//        new Thread(new DataConsumer(data)).start();
-        Locale locale = Locale.getDefault();
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("Message",locale);
-        System.out.println(resourceBundle.getString("hello"));
-
+    public static void main(String args[]) throws IOException{
+        String string = "hello world !!!";
+        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
+        OutputStream outputStream = new ByteArrayOutputStream();
+        int curr_data;
+        while ((curr_data = inputStream.read()) != -1){
+            //Character类的static方法：toUpperCase的两个方法重载
+            //(1) char ch 表示可以接收字符 (2) int codePoint表示可以接收的代码点的下标？
+            outputStream.write(Character.toUpperCase(curr_data));
+        }
+        System.out.println(outputStream.toString());
     }
 }
