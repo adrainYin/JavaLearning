@@ -1,6 +1,7 @@
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.*;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -110,15 +111,26 @@ class DataConsumer implements Runnable{
 public class Main {
 
     public static void main(String args[]) throws IOException{
-        String string = "hello world !!!";
-        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
-        OutputStream outputStream = new ByteArrayOutputStream();
-        int curr_data;
-        while ((curr_data = inputStream.read()) != -1){
-            //Character类的static方法：toUpperCase的两个方法重载
-            //(1) char ch 表示可以接收字符 (2) int codePoint表示可以接收的代码点的下标？
-            outputStream.write(Character.toUpperCase(curr_data));
+        Date date = new Date();
+        Class<?> aClass =  date.getClass();
+        System.out.println(aClass.getName());
+        Class<?> bclass = Date.class;
+        System.out.println(bclass.getName());
+
+        try {
+            Class<?> cclass = Class.forName("java.util.Date");
+            System.out.println(cclass.getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        System.out.println(outputStream.toString());
+
+        try {
+            Object object = aClass.newInstance();
+            System.out.println(object.toString());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
