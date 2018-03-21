@@ -26,6 +26,17 @@ public class ClassLoaaderUtil extends ClassLoader{
         }
         return null;
     }
+//该方法不能覆写，否则会抛出线程安全异常
+//    @Override
+//    public Class<?> loadClass(String name) throws ClassNotFoundException {
+//        try {
+//            byte classData[] = this.loadCLassData();
+//            return super.defineClass(name,classData,0,classData.length);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * 工具类，读取class文件中的所有数据
@@ -33,7 +44,7 @@ public class ClassLoaaderUtil extends ClassLoader{
      * @throws IOException
      */
     private byte[] loadCLassData() throws IOException {
-        //程序定义死，之后可以根据情况实时调整
+        //程序定义，之后可以根据情况实时调整
         InputStream inputStream = new FileInputStream("D:" + File.separator + "Person.class");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte data[] = new byte[10];
@@ -49,6 +60,7 @@ public class ClassLoaaderUtil extends ClassLoader{
 
     public static void main(String[] args) throws Exception {
         //此处需要实例化对象来输出内容
-       System.out.println(new ClassLoaaderUtil().findClass("unity.Person").newInstance());
+        System.out.println(new ClassLoaaderUtil().findClass("unity.Person").newInstance());
+//        System.out.println(new ClassLoaaderUtil().loadClass("unity.Person").newInstance());
     }
 }
