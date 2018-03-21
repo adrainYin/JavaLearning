@@ -3,7 +3,39 @@ package unity;
 public class Dept {
     private String dname;
     private String did;
-    private Company company = new Company();
+    private Integer telephone;
+    private Long number;
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "dname='" + dname + '\'' +
+                ", did='" + did + '\'' +
+                ", telephone=" + telephone +
+                ", number=" + number +
+                ", company=" + company +
+                '}';
+    }
+
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
+    public Long getNumber() {
+        return number;
+    }
+
+    public void setNumber(Long number) {
+        this.number = number;
+    }
+
+
+
+    private Company company ;
 
     public Company getCompany() {
         return company;
@@ -11,15 +43,6 @@ public class Dept {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "dname='" + dname + '\'' +
-                ", did='" + did + '\'' +
-                ", company=" + company +
-                '}';
     }
 
     public String getDname() {

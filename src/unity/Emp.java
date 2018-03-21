@@ -3,7 +3,7 @@ package unity;
 public class Emp {
     private String ename;
     private String eage;
-    private Dept dept = new Dept();
+    private Dept dept ;
 
     @Override
     public String toString() {
@@ -11,8 +11,19 @@ public class Emp {
                 "ename='" + ename + '\'' +
                 ", eage='" + eage + '\'' +
                 ", dept=" + dept +
+                ", salary=" + salary +
                 '}';
     }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    private Double salary;
 
     public Dept getDept() {
         return dept;
