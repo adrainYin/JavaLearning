@@ -3,6 +3,24 @@ package unity;
 public class Emp {
     private String ename;
     private String eage;
+    private Dept dept = new Dept();
+
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "ename='" + ename + '\'' +
+                ", eage='" + eage + '\'' +
+                ", dept=" + dept +
+                '}';
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
 
     public String getEname() {
         return ename;
@@ -20,11 +38,4 @@ public class Emp {
         this.eage = eage;
     }
 
-    @Override
-    public String toString() {
-        return "Emp{" +
-                "ename='" + ename + '\'' +
-                ", eage='" + eage + '\'' +
-                '}';
-    }
 }

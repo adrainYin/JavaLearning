@@ -11,7 +11,6 @@ public class EmpAction {
     public void setValue(String value) throws NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
         BeanOperation.setBeanValue(this , value);
     }
-
     public Emp getEmp() {
         return emp;
     }

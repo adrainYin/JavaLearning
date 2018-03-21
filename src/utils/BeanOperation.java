@@ -11,10 +11,17 @@ public class BeanOperation {
         for (int i = 0; i < result.length; i++) {
             String data[] = result[i].split(":");
             String fields[] = data[0].split("\\.");
-            Object currObject = BeanUtil.getObject(actionObject , fields[0]);
-            //得到了对象之后需要对其进行赋值操作
-            BeanUtil.setObjectVaule(currObject,fields[1],data[1]);
-
+            if (fields.length > 2){
+                Object currObject = actionObject;
+                for (int j = 0; j < fields.length -1; j++) {
+                   currObject = BeanUtil.getObject(currObject , fields[j]);
+                }
+                BeanUtil.setObjectVaule(currObject,fields[fields.length-1],data[1]);
+            }else {
+                Object currObject = BeanUtil.getObject(actionObject, fields[0]);
+                //得到了对象之后需要对其进行赋值操作
+                BeanUtil.setObjectVaule(currObject, fields[1], data[1]);
+            }
         }
     }
 }
