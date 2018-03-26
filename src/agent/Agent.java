@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
 
-//定义操作接口，在用户真是进行操作的时候只能看到该接口，而具体的方法实现类将会对用户隐藏
+//定义操作接口，在用户真实进行操作的时候只能看到该接口，而具体的方法实现类将会对用户隐藏
 interface Subject{
     public void eat(String name,int num);
 }
