@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS 'user';
+CREATE TABLE 'user'(
+'id' INT (11) NOT NULL AUTO_INCREMENT,
+'name' VARCHAR (64) NOT NULL,
+'sex' VARCHAR (8) ,
+'salary' INT (11) DEFAULT '0',
+PRIMARY KEY ('id')
+) CHARSET = utf8;
