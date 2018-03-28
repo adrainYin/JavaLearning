@@ -1,9 +1,13 @@
+import javax.swing.text.Segment;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Person implements Observer{
 
@@ -86,6 +90,23 @@ public class Test {
             int len = reader.read(data);
             System.out.println(new String(data,0,len));
         }
+        List<String> list = new ArrayList<>();
+        list.add("java");
+        list.add("javascript");
+        list.add("python");
+        list.add("C");
+        list.add("C++");
+        //取得Stream流
+        Stream<String>  stream= list.stream();
+        //使用过滤器取得符合条件的所有元素，并且用collect方法，将元素收集到一个集合中
+        List<String> strings =  stream.filter((e) -> e.contains("a")).collect(Collectors.toList());
+        //用foreach方法对集合进行操作
+        //用labbda表达式
+        strings.forEach((x) -> {
+                    x += "nihao";
+                    System.out.println(x);
+                }
+            );
 
 
 
