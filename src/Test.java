@@ -48,7 +48,9 @@ public class Test {
         house.addObserver(p1);
         house.addObserver(p2);
         house.addObserver(p3);
-        house.setPrice(100000.0);
+
+
+        house.setPrice(50000.0);
 
 
 

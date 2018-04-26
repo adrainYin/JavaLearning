@@ -4,6 +4,7 @@ import java.util.ArrayList;
 /**
  * 定义观察者抽象类，其中有一个更新方法
  */
+@FunctionalInterface
 interface Observer {
     void update(String message);
 }
