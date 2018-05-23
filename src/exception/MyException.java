@@ -1,11 +1,6 @@
 package exception;
 
 public class MyException extends Exception{
-    public MyException(){}
-    public MyException(String msg){
-
-    }
-
     public static void main(String[] args) {
         try {
             //直接抛出异常
@@ -25,6 +20,17 @@ public class MyException extends Exception{
                 System.out.println(stackTraceElements[i].getLineNumber());
                 System.out.println(stackTraceElements[i].getMethodName());
             }
+            try {
+                /**
+                 * 在异常处理程序中将异常信息再向上一级环境的异常处理程序中再抛
+                 */
+                throw e;
+            } catch (Exception e1) {
+                System.out.println("e1的异常处理程序");
+                Throwable throwable =  e1.fillInStackTrace();
+                throwable.printStackTrace();
+            }
+
         }
 
     }

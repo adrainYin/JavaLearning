@@ -52,6 +52,8 @@ class ProxySubject implements InvocationHandler{
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         method.invoke(realobject,args);
+        //在这里动态代理的伪对象不能当作方法调用的实际对象
+        //method.invoke(proxy, args);
         return null;
     }
 }
