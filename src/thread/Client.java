@@ -76,7 +76,7 @@ class Counter implements Runnable{
         count = 0;
     }
 
-    public   void countAdd() {
+    public  void countAdd() {
         //这里的this的意思是对当前对象的当前代码块进行加锁，只能作用于当前代码块，而不能作用于其他代码块
         {
             for (int i = 0; i < 5; i ++) {
