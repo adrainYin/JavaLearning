@@ -1,17 +1,25 @@
 package thread;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Main {
 
-    public static void main(String[] args) {
-        ATestThread aTestThread = new ATestThread();
-        aTestThread.start();
-        System.out.println("我想在子线程睡眠结束后再结束主线程，但是我不知道子线程要运行多久时间");
-        //join()的作用是使得调用该函数的线程正常执行run()方法，而在哪个线程中调用的线程要无限等待直到
-        //正常完成run()函数的线程销毁
-        try {
-            aTestThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws InterruptedException {
+
+        ThreadA threadA = new ThreadA();
+        threadA.start();
+        Thread.sleep(100);
+        for (int i = 0; i < 10; i++) {
+            System.out.println("在主线程中取得" + Tools.inheritableThreadLocalExp.get());
+            try {
+                Thread.sleep(100);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        Lock lock = new ReentrantLock();
+
     }
 }
