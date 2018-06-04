@@ -2,10 +2,13 @@ package thread;
 
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Service {
 //    public static synchronized void printA(){
@@ -41,6 +44,25 @@ public class Service {
      */
     private ReentrantLock lock = new ReentrantLock();//如果不加boolean值，那么默认new的锁是非公平锁
     private Condition condition = lock.newCondition();
+    private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+    /**
+     * timer定时器，当Timer用构造器初始化的时候就会new一个新线程，使用该线程进行任务的调度运行
+     */
+    private Timer timer = new Timer();
+
+    /**
+     * 清除Timer调度的所有计划
+     */
+    public void cancel(){
+        timer.cancel();
+    }
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+        //清除该调度类的计划v
+            timerTask.cancel();
+        }
+    };
 
 //    public void waitMethod(){
 //        lock.lock();
