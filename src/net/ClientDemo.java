@@ -4,10 +4,7 @@ import thread.Client;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.channels.FileChannel;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.Scanner;
 
 public class ClientDemo {
@@ -32,6 +29,8 @@ public class ClientDemo {
         SelectionKey key = socketChannel.register(selector, interest);
         //这个是一个阻塞方法，如果没有同道处于已经就绪的状态，那么线程会阻塞到该方法上。
         selector.select();
+
+        CompletionHandler completionHandler;
 
     }
 }

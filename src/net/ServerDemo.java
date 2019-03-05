@@ -81,7 +81,7 @@ public class ServerDemo {
         Future<AsynchronousSocketChannel> socketChannelFuture = asynchronousServerSocketChannel.accept();
         try {
             AsynchronousSocketChannel socketChannel = socketChannelFuture.get();
-            
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
