@@ -6,12 +6,11 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class ServerDemo {
 
@@ -40,14 +39,15 @@ public class ServerDemo {
                 if ((key.readyOps() & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) {
                     //存在继承的关系，所以可以直接转型
                     ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
-                    //这里已经得到了服务器的channel下一步是为读数据作准备
+                    //这里已经得到了服务器的channel下一步是为读数据作准备，这里的连接表示服务器
+                    //已经取得了客户端的连接socket。为下一步监听socket的read作准备，所以还需要向轮询器注册。
                     SocketChannel sc = ssc.accept();
                     //开始读取数据
                     sc.configureBlocking(false);
                     sc.register(selector, SelectionKey.OP_READ);
                     iterator.remove();
                 }
-                //表示已经做好了读的准备
+                //表示已经做好了读的准备，这里也是单线程处理的模型，可以将数据处理部分抽离出来，用线程池解决。
                 else if ((key.readyOps() & SelectionKey.OP_READ) == SelectionKey.OP_READ) {
                     SocketChannel sc = (SocketChannel) key.channel();
                     while (true) {
@@ -56,8 +56,9 @@ public class ServerDemo {
                         if (count < 0) {
                             break;
                         }
+                        buffer.flip();
+                        //这里应该对buffer做相应的操作。
                     }
-                    buffer.flip();
                     iterator.remove();
                 }
             }
@@ -73,5 +74,18 @@ public class ServerDemo {
         printWriter.println("hello world");
         printWriter.close();
         serverSocket.close();
+
+
+        AsynchronousServerSocketChannel asynchronousServerSocketChannel = AsynchronousServerSocketChannel.open();
+        //accept()不会阻塞，只是会在数据准备完成后调用
+        Future<AsynchronousSocketChannel> socketChannelFuture = asynchronousServerSocketChannel.accept();
+        try {
+            AsynchronousSocketChannel socketChannel = socketChannelFuture.get();
+            
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
